@@ -142,7 +142,7 @@ A different technique for handling self-collisions is called [spatial hashing](h
 
 Here are 3 videos of the cloth falling straight down to demonstrate its newfound self-collision abilities:  
 
-| <video width = "680" height="480" controls> <source src = "./vids/self_collision.mp4"> | </video> <video width = "680" height="480" controls> <source src = "./vids/self_collision2.mp4"> </video> |
+| <video width = "680" height="480" controls> <source src = "./vids/self_collision1.mp4"> | </video> <video width = "680" height="480" controls> <source src = "./vids/self_collision2.mp4"> </video> |
 |:--:|:--:|
 | **Self collision under standard parameters** <br /> Not much to see here, just a cloth falling on itself | **Self collision with very low density** <br />  We can see that the cloth folds into nice curves like a piece of ribbon candy. This is because at low density, the force due to gravity is much less than the bending and self-collision forces, making the cloth move out of the plane rather than forming sharp creases.    |
 | <video width = "680" height="480" controls> <source src = "./vids/sphere_collision1.mp4"> | |
