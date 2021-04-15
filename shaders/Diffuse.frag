@@ -25,9 +25,14 @@ in vec4 v_normal;
 out vec4 out_color;
 
 void main() {
-  // YOUR CODE HERE
-  
-  // (Placeholder code. You will want to replace it.)
-  out_color = (vec4(1, 1, 1, 0) + v_normal) / 2;
+  vec4 light_pos = vec4(u_light_pos, 1);
+  vec4 light_intensity = vec4(u_light_intensity, 1);
+  // The illumination falling on a point from a point-light source is equal to the intensity of the light divided by
+  // the distance from the point to the light squared
+  vec4 illumination = light_intensity / (distance(v_position, light_pos) * distance(v_position, light_pos));
+  // The intensity of the light coming from a point on a diffuse surface depends on the
+  // angle between the point and the light source. i.e.
+  float scale = max(0, dot(normalize(v_normal), normalize(light_pos - v_position)));
+  out_color = u_color * illumination * scale;
   out_color.a = 1;
 }

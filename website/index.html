@@ -48,7 +48,11 @@
 <li><a href="#part-2-simulation-via-numerical-integration"><strong>Part 2: Simulation via numerical integration</strong></a></li>
 <li><a href="#part-3-handling-collisions-with-other-objects"><strong>Part 3: Handling collisions with other objects</strong></a></li>
 <li><a href="#part-4-handling-self-collisions"><strong>Part 4: Handling self-collisions</strong></a></li>
-<li><a href="#part-5-shaders"><strong>Part 5: Shaders</strong></a></li>
+<li><a href="#part-5-shaders"><strong>Part 5: Shaders</strong></a>
+<ul>
+<li><a href="#mirror"><strong>Mirror</strong></a></li>
+</ul>
+</li>
 </ul>
 <br />
 <h2 id="overview"><strong>Overview</strong></h2>
@@ -361,14 +365,83 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 </table>
 <br />
 <h2 id="part-5-shaders"><strong>Part 5: Shaders</strong></h2>
+<p>In our raytracer project, we did all of our computation on the CPU. Because of this, it took a very long time to render scenes. Instead of relying entirely on the CPU, we can use a Graphics Processing Unit for dedicated graphics processing. GPUs can be entirely separate hardware on a computer (graphics cards), but many CPUs come with integrated GPUs.</p>
+<p>Shaders are programs that run in parallel on GPU. They execute parts of the graphics pipeline much more efficiently than programs that rely on a computer's CPU. In this project, we will using a programming language called <a href="!https://en.wikipedia.org/wiki/OpenGL_Shading_Language">OpenGL Shading Language</a>(GLSL) to write our shaders. Luckily for us, GLSL is syntatically similar to the C programming language. The reason why there is a special programming language for writing shaders is because it is designed to give programmers more direct control of the graphics pipeline and to simplify the calculations inherent to graphics processing.</p>
+<p>In this project, there are two basic types of OpenGL shaders that will be used:</p>
+<ul>
+<li><strong>Vertex shaders</strong> : these generally deal with and apply transforms to vertices. Basically, vertex shaders handle the geometric properties of a scene</li>
+<li><strong>Fragment shaders</strong> : these shaders take in the geometric attributes of a scene and handle the lighting of the scene</li>
+</ul>
+<p>To create a full shader program, we link a vertex shader and a fragment shader. The vertex shader outputs the geometry of a scene to the fragment shader, then the fragment shader determines the lighting. In this project, we implemented multiple types of shaders.</p>
+<h3 id="blinn-phong-shading-"><strong>Blinn-Phong shading</strong> <!-- omit in toc --></h3>
+<p>In the Blinn-Phong shading model, we start by calculating the results from applying diffuse shading (brightness of a spot is determined by the angle formed with the light source). After we have the light resulting from diffuse reflection, we calculate the light that results from specular reflection. This combination of diffuse and specular reflection is the Blinn-Phong model. The contribution of diffuse lighting vs specular lighting at a point is governed by a diffuse and specular coefficient, respectively. (i.e. these coefficients tell us how light interacts with the surface)</p>
+<p>Here's some examples of Blinn-Phong shading under different settings.</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center"><video width = "680" height="480" controls> <source src = "./vids/self_collision.mp4"></th>
-<th style="text-align:center"></video> <video width = "680" height="480" controls> <source src = "./vids/self_collision2.mp4"> </video></th>
+<th style="text-align:center"><img src="../website/pics/9.png" width="680" height="480"></th>
+<th style="text-align:center"><img src="../website/pics/10.png" width="680" height="480"></th>
 </tr>
 </thead>
-<tbody></tbody>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Only ambient component</strong></td>
+<td style="text-align:center"><strong>Only diffuse component</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><img src="../website/pics/11.png" width="680" height="480"></td>
+<td style="text-align:center"><img src="../website/pics/8.png" width="680" height="480"></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Only specular component</strong></td>
+<td style="text-align:center"><strong>Entire Blinn-Phong model</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="custom-texture-"><strong>Custom Texture</strong> <!-- omit in toc --></h3>
+<p>We can use any image as a texture. Here's a random image I downloaded and used as a texture.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><video width = "680" height="480" controls> <source src = "./vids/texture.mp4"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Yeehaw</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="bump-mapping-and-displacement-mapping-"><strong>Bump mapping and displacement mapping</strong> <!-- omit in toc --></h3>
+<p>Bump mapping is a technique for <em>simulating</em> textured surfaces by altering the light by some displacement vector. Displacement mapping is a technique to create textured surfaces by altering the geometry of an object. Here's some examples:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="../website/pics/12.png" width="680" height="480"></th>
+<th style="text-align:center"><img src="../website/pics/13.png" width="680" height="480"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Bump mapping</strong></td>
+<td style="text-align:center"><strong>Displacement mapping</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="mirror"><strong>Mirror</strong></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="../website/pics/15.png" width="680" height="480"></th>
+<th style="text-align:center"><img src="../website/pics/14.png" width="680" height="480"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Mirror cloth on sphere</strong></td>
+<td style="text-align:center"><strong>Mirror and cloth seperate</strong></td>
+</tr>
+</tbody>
 </table>
 
     </body>
