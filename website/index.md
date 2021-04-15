@@ -26,7 +26,6 @@
 - [**Part 3: Handling collisions with other objects**](#part-3-handling-collisions-with-other-objects)
 - [**Part 4: Handling self-collisions**](#part-4-handling-self-collisions)
 - [**Part 5: Shaders**](#part-5-shaders)
-  - [**Mirror**](#mirror)
 
 <br />
 
@@ -36,7 +35,7 @@ The purpose of this project is to implement a real-time simulation of cloth usin
 
 <br />
 
-## **Part 1: Masses and springs** 
+## **Part 1: Masses and springs**
 
 The first part of this project involves implementing data structures that represent our system of masses and springs. Specifically for this project, we will be simulating cloth. To do this, we create a cloth of some `width * height` size, where the bottom left of the cloth is at the origin. The cloth is composed of `num_width_points * num_height_points` point masses. Springs can connect point masses. There are 3 different types of springs, and the distribution of springs follows some basic rules:
 
@@ -177,6 +176,7 @@ Here's some examples of Blinn-Phong shading under different settings.
 |<img src="../website/pics/11.png" width="680" height="480"> | <img src="../website/pics/8.png" width="680" height="480"> |
 |**Only specular component** | **Entire Blinn-Phong model** |
 
+<br />
 
 ### **Custom Texture** <!-- omit in toc -->
 
@@ -186,15 +186,33 @@ We can use any image as a texture. Here's a random image I downloaded and used a
 |:--:|
 |**Yeehaw**|
 
+<br />
+
 ### **Bump mapping and displacement mapping** <!-- omit in toc -->
 
-Bump mapping is a technique for *simulating* textured surfaces by altering the light by some displacement vector. Displacement mapping is a technique to create textured surfaces by altering the geometry of an object. Here's some examples:  
+Bump mapping is a technique for *simulating* textured surfaces by altering the light by some displacement vector. Displacement mapping is a technique to create textured surfaces by altering the geometry of an object. Here's some examples showing the differences between the two techniques.
 
-| <img src="../website/pics/12.png" width="680" height="480"> | <img src="../website/pics/13.png" width="680" height="480"> |
+| <img src="../website/pics/16.png" width="680" height="480"> | <img src="../website/pics/17.png" width="680" height="480"> |
 |:--:|:--:|
-|**Bump mapping**|**Displacement mapping**|
+|**Bump mapping on the sphere**|**Bump mapping on the cloth** <br /> Notice how the cloth seems perfectly flat, even though the image printed gives the illusion of it being some kind of woven fabric.|
 
-### **Mirror**
+| <img src="../website/pics/18.png" width="680" height="480"> | <img src="../website/pics/19.png" width="680" height="480"> |
+|:--:|:--:|
+|**Displacement mapping on the sphere**|**Displacement mapping on the cloth** <br /> Now, the cloth looks likes it's actually woven out of 3d fibers.|
+
+| <img src="../website/pics/20.png" width="680" height="480"> | <img src="../website/pics/21.png" width="680" height="480"> |
+|:--:|:--:|
+|**Bump mapping on a coarse sphere**|**Bump mapping on a fine sphere** <br /> Not much difference can really be seen here. Since bump mapping doesn't have an affect on the geometry of objects.|
+
+| <img src="../website/pics/22.png" width="680" height="480"> | <img src="../website/pics/23.png" width="680" height="480"> |
+|:--:|:--:|
+|**Displacement mapping on a coarse sphere**|**Displacement mapping on a fine sphere** <br /> We can see that the raised surfaces are a bit smoother when we have a higher resolution sphere. (change in height between vertices is more gradual)|
+
+### **Mirror** <!-- omit in toc -->
+
+The last shader is one that simulates a mirror surface. We use some of the same concepts as we did in ray-tracing, namely projecting a ray from the camera to a vertex, then determining the direction that light would have to come from to reflect from that vertex to the camera. In this shader, the light is coming from all around the scene at infinite distance, just like environmental lighting.
+
+<br />
 
 | <img src="../website/pics/15.png" width="680" height="480"> | <img src="../website/pics/14.png" width="680" height="480"> |
 |:--:|:--:|

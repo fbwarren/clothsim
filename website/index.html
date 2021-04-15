@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>&lt;center&gt; &midast;&midast;CS 184&colon; Computer Graphics and Imaging&comma; Spring 2021&midast;&midast; &lt;&excl;-- omit in toc --&gt;</title>
+        <title>Project 4: Cloth Sim Writeup</title>
         <style>
 </style>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
@@ -48,11 +48,7 @@
 <li><a href="#part-2-simulation-via-numerical-integration"><strong>Part 2: Simulation via numerical integration</strong></a></li>
 <li><a href="#part-3-handling-collisions-with-other-objects"><strong>Part 3: Handling collisions with other objects</strong></a></li>
 <li><a href="#part-4-handling-self-collisions"><strong>Part 4: Handling self-collisions</strong></a></li>
-<li><a href="#part-5-shaders"><strong>Part 5: Shaders</strong></a>
-<ul>
-<li><a href="#mirror"><strong>Mirror</strong></a></li>
-</ul>
-</li>
+<li><a href="#part-5-shaders"><strong>Part 5: Shaders</strong></a></li>
 </ul>
 <br />
 <h2 id="overview"><strong>Overview</strong></h2>
@@ -398,6 +394,7 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 </tr>
 </tbody>
 </table>
+<br />
 <h3 id="custom-texture-"><strong>Custom Texture</strong> <!-- omit in toc --></h3>
 <p>We can use any image as a texture. Here's a random image I downloaded and used as a texture.</p>
 <table>
@@ -412,23 +409,68 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 </tr>
 </tbody>
 </table>
+<br />
 <h3 id="bump-mapping-and-displacement-mapping-"><strong>Bump mapping and displacement mapping</strong> <!-- omit in toc --></h3>
-<p>Bump mapping is a technique for <em>simulating</em> textured surfaces by altering the light by some displacement vector. Displacement mapping is a technique to create textured surfaces by altering the geometry of an object. Here's some examples:</p>
+<p>Bump mapping is a technique for <em>simulating</em> textured surfaces by altering the light by some displacement vector. Displacement mapping is a technique to create textured surfaces by altering the geometry of an object. Here's some examples showing the differences between the two techniques.</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center"><img src="../website/pics/12.png" width="680" height="480"></th>
-<th style="text-align:center"><img src="../website/pics/13.png" width="680" height="480"></th>
+<th style="text-align:center"><img src="../website/pics/16.png" width="680" height="480"></th>
+<th style="text-align:center"><img src="../website/pics/17.png" width="680" height="480"></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"><strong>Bump mapping</strong></td>
-<td style="text-align:center"><strong>Displacement mapping</strong></td>
+<td style="text-align:center"><strong>Bump mapping on the sphere</strong></td>
+<td style="text-align:center"><strong>Bump mapping on the cloth</strong> <br /> Notice how the cloth seems perfectly flat, even though the image printed gives the illusion of it being some kind of woven fabric.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="mirror"><strong>Mirror</strong></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="../website/pics/18.png" width="680" height="480"></th>
+<th style="text-align:center"><img src="../website/pics/19.png" width="680" height="480"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Displacement mapping on the sphere</strong></td>
+<td style="text-align:center"><strong>Displacement mapping on the cloth</strong> <br /> Now, the cloth looks likes it's actually woven out of 3d fibers.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="../website/pics/20.png" width="680" height="480"></th>
+<th style="text-align:center"><img src="../website/pics/21.png" width="680" height="480"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Bump mapping on a coarse sphere</strong></td>
+<td style="text-align:center"><strong>Bump mapping on a fine sphere</strong> <br /> Not much difference can really be seen here. Since bump mapping doesn't have an affect on the geometry of objects.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="../website/pics/22.png" width="680" height="480"></th>
+<th style="text-align:center"><img src="../website/pics/23.png" width="680" height="480"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Displacement mapping on a coarse sphere</strong></td>
+<td style="text-align:center"><strong>Displacement mapping on a fine sphere</strong> <br /> We can see that the raised surfaces are a bit smoother when we have a higher resolution sphere. (change in height between vertices is more gradual)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mirror-"><strong>Mirror</strong> <!-- omit in toc --></h3>
+<p>The last shader is one that simulates a mirror surface. We use some of the same concepts as we did in ray-tracing, namely projecting a ray from the camera to a vertex, then determining the direction that light would have to come from to reflect from that vertex to the camera. In this shader, the light is coming from all around the scene at infinite distance, just like environmental lighting.</p>
+<br />
 <table>
 <thead>
 <tr>
