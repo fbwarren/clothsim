@@ -11,8 +11,6 @@
 
 The purpose of this project is to implement a real-time simulation of cloth using a mass and spring based system. Many physical systems can be simulated in this way. Besides cloth, we can use this model to simulate Things like hair, skin, liquids, air, and so on. The bulk of the complexity of this is in implementing efficient data structures to represent the cloth and implementing numerical integration methods that are simple, efficient, and stable.
 
-<br />
-
 ## **Masses and springs**
 
 The first part of this project involves implementing data structures that represent our system of masses and springs. Specifically for this project, we will be simulating cloth. To do this, we create a cloth of some `width * height` size, where the bottom left of the cloth is at the origin. The cloth is composed of `num_width_points * num_height_points` point masses. Springs can connect point masses. There are 3 different types of springs, and the distribution of springs follows some basic rules:
@@ -26,8 +24,6 @@ We use 3 different types of springs because we want to control each type of spri
 | <img src="./website/pics/1.png">| <img src="./website/pics/2.png"> | <img src="./website/pics/3.png"> |
 |:-----------------------:|:------------------------:|:------------------------:|
 | **No shearing springs**| **Only shearing springs**| **All spring types** |
-
-<br />  <br />
 
 ## **Simulation via numerical integration**
 
@@ -84,8 +80,6 @@ After implementing the physical equations of the system and the constraints, we 
 |:------------------------:|
 | **This is the final resting position of a cloth with 4 pinned corners under default parameters.**  
 
-<br />
-
 ## **Handling collisions with other objects**
 
 We have just implemented the physical simulation of gravity interacting with cloth. Now, we want to simulate the interactions of cloth with other objects. To do this, we need to add support for collisions between cloth and other objects. In this part, we will implement collisions between spheres and planes. This is mainly achieved using the `collide` method, which are methods in sphere and plane objects. The `collide` method checks whether or not a given point mass is inside of the given object.  
@@ -108,8 +102,6 @@ Here's some examples of collisions with spheres and planes:
 | <video width="680" height="480" controls> <source src="./website/vids/sphere_collision3) | <video width="680" height="480" controls> <source src="./website/vids/plane_collision) |  
 | **Sphere collision with $k_s = 50,000 \ N/m$** <br /> This cloth deforms much less on collision than the $k_s = 500 \ N/m$ cloth. There isn't very many waves that can be seen on this cloth's surface. When the cloth is at rest, it doesn't cling to the sphere as much as cloth with lesser spring constants. This cloth behaves how one might imagine a thicker, dry fabric would behave. | **Plane collision** <br /> Not much to see here...|
 
-<br />
-
 ## **Handling self-collisions**
 
 You may have noticed in the sphere collision videos that the cloth passes through itself instead of self-colliding. The naive method that first comes to mind is to loop through each mass and check which masses are within a certain threshold distance of it and changing the forces on these pairs so that they are no longer within that threshold distance of each other. However, in this naive implementation, we are have to check every possible pair of points, which means we are performing $O(n^2)$ checks and possible operations, which becomes very slow, very quickly.  
@@ -124,8 +116,6 @@ Here are 3 videos of the cloth falling straight down to demonstrate its newfound
 | ![video](./website/vids/sphere_collision1.mp4) | |
 | **Self collision with very high $k_s$** <br /> Having large spring constants achieves a similar effect to having low density. If we don't change density, we can make our springs more stiff to overcome the force due to gravity. |
 
-<br />
-
 ## **Shaders**
 
 In our raytracer project, we did all of our computation on the CPU. Because of this, it took a very long time to render scenes. Instead of relying entirely on the CPU, we can use a Graphics Processing Unit for dedicated graphics processing. GPUs can be entirely separate hardware on a computer (graphics cards), but many CPUs come with integrated GPUs.  
@@ -139,7 +129,7 @@ In this project, there are two basic types of OpenGL shaders that will be used:
 
 To create a full shader program, we link a vertex shader and a fragment shader. The vertex shader outputs the geometry of a scene to the fragment shader, then the fragment shader determines the lighting. In this project, we implemented multiple types of shaders.  
 
-### **Blinn-Phong shading** <!-- omit in toc -->
+### **Blinn-Phong shading**
 
 In the Blinn-Phong shading model, we start by calculating the results from applying diffuse shading (brightness of a spot is determined by the angle formed with the light source). After we have the light resulting from diffuse reflection, we calculate the light that results from specular reflection. This combination of diffuse and specular reflection is the Blinn-Phong model. The contribution of diffuse lighting vs specular lighting at a point is governed by a diffuse and specular coefficient, respectively. (i.e. these coefficients tell us how light interacts with the surface)
 
@@ -163,7 +153,7 @@ We can use any image as a texture. Here's a random image I downloaded and used a
 
 <br />
 
-### **Bump mapping and displacement mapping** <!-- omit in toc -->
+### **Bump mapping and displacement mapping**
 
 Bump mapping is a technique for *simulating* textured surfaces by altering the light by some displacement vector. Displacement mapping is a technique to create textured surfaces by altering the geometry of an object. Here's some examples showing the differences between the two techniques.
 
@@ -183,7 +173,7 @@ Bump mapping is a technique for *simulating* textured surfaces by altering the l
 |:--:|:--:|
 |**Displacement mapping on a coarse sphere**|**Displacement mapping on a fine sphere** <br /> We can see that the raised surfaces are a bit smoother when we have a higher resolution sphere. (change in height between vertices is more gradual)|
 
-### **Mirror** <!-- omit in toc -->
+### **Mirror**
 
 The last shader is one that simulates a mirror surface. We use some of the same concepts as we did in ray-tracing, namely projecting a ray from the camera to a vertex, then determining the direction that light would have to come from to reflect from that vertex to the camera. In this shader, the light is coming from all around the scene at infinite distance, just like environmental lighting.
 
