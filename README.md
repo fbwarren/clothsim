@@ -1,3 +1,47 @@
+# clothsim
+
+Run the executable using the command  
+`./clothsim -f ../scene/<my_scene>.json`
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th style="text-align:center">Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pause simulation</td>
+<td style="text-align:center"><kbd>P</kbd></td>
+</tr>
+<tr>
+<td>(while paused) Go forward 1 timestep</td>
+<td style="text-align:center"><kbd>N</kbd></td>
+</tr>
+<tr>
+<td>Restart simulation</td>
+<td style="text-align:center"><kbd>R</kbd></td>
+</tr>
+<tr>
+<td>End simulation</td>
+<td style="text-align:center"><kbd>ESC</kbd></td>
+</tr>
+<tr>
+<td>Reset camera to default position</td>
+<td style="text-align:center"><kbd>SPACE</kbd></td>
+</tr>
+<tr>
+<td>Rotate camera</td>
+<td style="text-align:center">(click and drag, or right click)</td>
+</tr>
+<tr>
+<td>Pan camera</td>
+<td style="text-align:center">(hold control + click and drag, or right click)</td>
+</tr>
+</tbody>
+</table>
+
 ## **Contents** <!-- omit in toc -->
 
 - [**Overview**](#overview)
